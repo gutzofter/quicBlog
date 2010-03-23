@@ -1,0 +1,42 @@
+# quicBlog Functional Specification
+
+---
+# Overview
+
+quickBlog is a text editor that uses a variant of markdown; showdown, to quickly enter hyperlinks and images. hyperlinks and images can be added after typing. The links will use the Google search function to find link looking for. What this will allow is to create a blog entry with out breaking concentration to find links or add images.
+
+---
+### This spec is not complete!
+
+---
+**Scenario 1:** Joe opens up editor and starts typing. As he type ungrammatical incorrect English, he realizes that he need to add a link to one of his favorite gurus blog entries. He will create a place holder for the link. Now he realizes that he needs to add an image. Another place holder required. After finish typing he will then have his placeholder hyperlinks do automatic Google searches (?API?) for the keywords. He will also be able to supply locations for images.
+
+---
+#Main Screen Image
+![main image] (http://localhost/blog_editor/ScreenImage.JPG)
+
+##showdown input box
+enter markdown text as normally
+
+##display output box
+* Display as a web page on box
+* Displays as web page in its own window ( Joe is a bad-ass programmer and uses a dual monitor setup.
+
+##HTML output box
+display HTML
+
+##Controls
+###Links
+
+![links button] (http://localhost/blog_editor/linksButton.JPG)
+
+This control is a slide down. It can be minimized. The 'link text buttons hold the search-able terms. Clicking on this moves word into 'search box'. Click on 'search button' and send search request to Google. 'Search results' will display result from google. When you clock on a single result, the link will be inserted into 'shadowdown input box.
+
+###Images
+TBD
+###Save
+TBD
+
+
+
+
