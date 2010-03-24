@@ -10,4 +10,14 @@
 
 $(function() {
     $("#content").addClass("outline");
+    var classArray = ['outline', 'reset_left', 'left_position'];
+    addClasses('#left_container', classArray);
+
+
 });
+
+function addClasses(elementId, items) {
+    for(var item in items)
+        $(elementId).addClass(items[item]);
+}
+
