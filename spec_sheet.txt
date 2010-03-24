@@ -1,4 +1,5 @@
 # quicBlog Functional Specification
+Reason: to learn to TDD a web page using jQuery/qunit and markdown language
 
 ---
 # Overview
@@ -13,7 +14,7 @@ quickBlog is a text editor that uses a variant of markdown; showdown, to quickly
 
 ---
 #Main Screen Image
-![main image] (http://localhost/blog_editor/ScreenImage.JPG)
+![main image] (http://localhost/quicBlog/ScreenImage.JPG)
 
 ##showdown input box
 enter markdown text as normally
@@ -28,7 +29,7 @@ display HTML
 ##Controls
 ###Links
 
-![links button] (http://localhost/blog_editor/linksButton.JPG)
+![links button] (http://localhost/quicBlog/linksButton.JPG)
 
 This control is a slide down. It can be minimized. The 'link text buttons hold the search-able terms. Clicking on this moves word into 'search box'. Click on 'search button' and send search request to Google. 'Search results' will display result from google. When you clock on a single result, the link will be inserted into 'shadowdown input box.
 
