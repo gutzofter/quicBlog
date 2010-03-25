@@ -48,6 +48,10 @@ root {
     height: 18em;
 }
 
+.box {
+    border: solid groove black;
+}
+
 .right_container {
 
 }
