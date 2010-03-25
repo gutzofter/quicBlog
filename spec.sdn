@@ -1,5 +1,12 @@
 # quicBlog Functional Specification
-Reason: to learn to TDD a web page using jQuery/qunit and markdown language
+#Reason:
+To learn to TDD a web application using [jQuery/qunit] and [markdown language] while using [qithub] to manage project
+
+---
+
+##Source:
+[quicBlog]
+
 
 ---
 # Overview
@@ -21,7 +28,7 @@ enter markdown text as normally
 
 ##display output box
 * Display as a web page on box
-* Displays as web page in its own window ( Joe is a bad-ass programmer and uses a dual monitor setup.
+* Displays as web page in its own window ( Joe is a bad-ass programmer and uses a dual monitor setup).
 
 ##HTML output box
 display HTML
@@ -38,6 +45,14 @@ TBD
 ###Save
 TBD
 
+---
 
+##Source:
+[quicBlog]
 
+---
 
+[qithub]: http://github.com/gutzofter/quicBlog
+[jQuery/qunit]: http://jquery.com/
+[markdown language]: http://attacklab.net/showdown/
+[quicBlog]: http://github.com/gutzofter/quicBlog</a>
