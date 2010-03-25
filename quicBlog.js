@@ -10,8 +10,10 @@
 
 $(function() {
     $("#content").addClass("outline");
-    var classArray = ['outline', 'reset_left', 'left_position'];
-    addClasses('#left_container', classArray);
+    var standardClasses = ['outline', 'reset_left', 'left_position'];
+    addClasses('#left_container', standardClasses);
+    addClasses('#input_box', standardClasses);
+    addClasses('#output_box', standardClasses);
 
 
 });

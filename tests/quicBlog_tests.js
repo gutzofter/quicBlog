@@ -10,6 +10,14 @@ $(function(){
         borderStyleEquals('#left_container');
     });
 
+    test("validate input_box border style", function(){
+        borderStyleEquals('#input_box');
+    });
+
+    test("validate output_box border style", function(){
+        borderStyleEquals('#output_box');
+    });
+
     module("utilities", {
 	setup: function() {
             $('#content').append('<div id="classer">Test</div>')
