@@ -60,3 +60,11 @@ root {
     display: block;
 }
 
+/*To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes before pushing again.  See the 'Note about
+fast-forwards' section of 'git push --help' for details.
+Pushing to git@github.com:gutzofter/quicBlog.git
+To git@github.com:gutzofter/quicBlog.git
+! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:gutzofter/quicBlog.git'
+*/
