@@ -142,7 +142,7 @@ $(function(){
         same(holder.parseBrackets('[h][b]'), ['[h]', '[b]'], 'should be two');
         same(holder.parseBrackets('[h] [b]'), ['[h]', '[b]'], 'should be two with space');
         same(holder.parseBrackets('[h]' + key.ret + '[b]'), ['[h]', '[b]'], 'should be two with multiline');
-        same(holder.parseBrackets('123sx]adx[h]sggy6 yyfgn f[b]fdg[vbsdbs'), ['[h]', '[b]'], 'should be two even when surrounded bynoise');
+        same(holder.parseBrackets('12*&^%GH3sx]adx[h]sggy6 yyfgn f[b]f+_-&&~~@dg[vbsdbs'), ['[h]', '[b]'], 'should be two even when surrounded bynoise');
 
     });
 
