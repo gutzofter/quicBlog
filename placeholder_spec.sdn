@@ -2,13 +2,6 @@
 #Reason:
 Need to be able to have placeholders introduced into output stream to automatically add empty-links.
 
-
-
-
-
-
-
-
 ---
 
 ##Source:
@@ -24,12 +17,18 @@ Now when you do this all the text is still surrounded by the brackets. You then 
 
 link--> **`[showdown]`**
 
-paragraph--> `some text below the brackets`
+paragraph--> `some text below the brackets placeholder`
 
-meta-link info-->**`[showdown]: http://whatever`**
+meta-link info-->**`[showdown]: #`**
 
 
 **See this is what I'm talking about; circularity at its worst while trying to put this post together I'm using showdown, but I have to go to the bottom of the page to put the meta-link information. Something like a chicken-egg problem. At least I'm [dog-fooding] code that I'm using in this web app**
+
+###Note: The showdown tokens for placeholders
+link = [link-text]
+
+image = [image-holder][alt-text]
+###
 
 ---
 
@@ -39,10 +38,32 @@ meta-link info-->**`[showdown]: http://whatever`**
 
 ##Objects
 
-![placeHolder]
+![placeHolder][placeholder]
+
+There are five objects. The main architecture will use [Atomic Object]'s Presenter First Pattern.
+
+###User Input
+User will enter a character at a time which will get sent to the text model
+###Text Controller
+Just forwards the character to the text model
+###Text Model
+The text model will pass character to placeholder recognizer. If a place holder it will the generate the meta-link information for the placeholder and store it in the text. The revised text is then sent to showdown. the showdown information is then sent to the HTML presenter
+
+###HTML Presenter
+Forwards data to the output.
+
+###HTML Output
+Displays HTML.
+
+---
+
+##Source:
+[quicBlog]
 
 
-[placeholder]: http
-[showdown]: http://whatever
-[dog-fooding]: http://dog-food
+
+[Atomic Object]: http://www.atomicobject.com/pages/Presenter+First
+[placeholder]: http://localhost/quicBlog/placeholder.JPG
+[showdown]: http://attacklab.net/showdown/
+[dog-fooding]: http://uglylispcode.wordpress.com/2008/07/20/dog-fooding-a-dsl-creating-an-extension-to-lisp-unit/
 [quicBlog]: http://github.com/gutzofter/quicBlog
