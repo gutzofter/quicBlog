@@ -1,0 +1,48 @@
+# quicBlog Placeholder Functional Specification
+#Reason:
+Need to be able to have placeholders introduced into output stream to automatically add empty-links.
+
+
+
+
+
+
+
+
+---
+
+##Source:
+[quicBlog]
+
+
+---
+# Overview
+
+At present when using [showdown] you specify a link by putting the text you want to be a link into brackets: **[]**.
+
+Now when you do this all the text is still surrounded by the brackets. You then have to go the bottom of your text page and add the actual link information (meta-link information). Here is an example:
+
+link--> **`[showdown]`**
+
+paragraph--> `some text below the brackets`
+
+meta-link info-->**`[showdown]: http://whatever`**
+
+
+**See this is what I'm talking about; circularity at its worst while trying to put this post together I'm using showdown, but I have to go to the bottom of the page to put the meta-link information. Something like a chicken-egg problem. At least I'm [dog-fooding] code that I'm using in this web app**
+
+---
+
+### This spec is not complete!
+
+---
+
+##Objects
+
+![placeHolder]
+
+
+[placeholder]: http
+[showdown]: http://whatever
+[dog-fooding]: http://dog-food
+[quicBlog]: http://github.com/gutzofter/quicBlog
