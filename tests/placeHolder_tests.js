@@ -8,7 +8,7 @@ var key = {
 
 function userInput() {
     this.whenInput = lambda.empty;
-    
+
     this.setInput = function(text) {
         this.whenInput(text);
     }
@@ -16,7 +16,7 @@ function userInput() {
 
 function textModel() {
     this.whenNewInput = lambda.empty;
-    
+
     // TODO: add a DataGateway for these memebers
     this.inputBuffer = '';
     this.metaInformation = '';
@@ -35,17 +35,33 @@ function textModel() {
         if(this.metaInformation == '') {
             return this.inputBuffer;
         }
-        return (this.inputBuffer + key.ret + key.ret + this.metaInformation);
+        return (this.inputBuffer + key.ret + this.metaInformation);
     }
 
 }
 
 function placeHolder() {
-    this.whenParsed = lambda.empty;
-    this.parseInput = function(inputBuffer) {
-        this.whenParsed('[hello]: #');
-//        '/\[[1-9]\]/'
-   }
+    this.whenMatchBrackets = lambda.empty;
+
+    this.matchBrackets = function(inputBuffer) {
+        var matches = [];
+        var matchIds = '';
+
+        matches = this.parseBrackets(inputBuffer);
+
+        for each(var match in matches) {
+            matchIds += (key.ret + match + ': #');
+        }
+
+        this.whenMatchBrackets(matchIds);
+
+    }
+
+    this.parseBrackets = function(text) {
+        var bracketPattern =  /\[(.*?)]/g;
+
+        return text.match(bracketPattern);
+    }
 }
 
 function textController(input, model) {
@@ -56,10 +72,10 @@ function textController(input, model) {
 
 function placeHolderCoordinator(placeHolder, model) {
     model.whenNewInput = function(inputBuffer) {
-        placeHolder.parseInput(inputBuffer);
+        placeHolder.matchBrackets(inputBuffer);
     }
 
-    placeHolder.whenParsed = function(holders) {
+    placeHolder.whenMatchBrackets = function(holders) {
         model.placeHolders(holders);
     }
 }
@@ -73,7 +89,7 @@ $(function(){
         var input = new userInput();
         var model = new textModel();
         new textController(input, model);
-        
+
         ok(validInputBufferOn(model, ''));
     });
 
@@ -88,7 +104,7 @@ $(function(){
 
     });
 
-     test("add link placeholder", function(){
+    test("add link placeholder", function(){
         var holder = new placeHolder();
         var model = new textModel();
         new placeHolderCoordinator(holder, model);
@@ -97,12 +113,12 @@ $(function(){
         var meta = '[hello]: #';
 
         model.newInput(input);
-        
+
         equal(model.markDown(), (input + key.ret + key.ret + meta));
 
     });
 
-     test("add two link placeholder", function(){
+    test("add two link placeholders", function(){
         var holder = new placeHolder();
         var model = new textModel();
         new placeHolderCoordinator(holder, model);
@@ -110,15 +126,29 @@ $(function(){
         var input = '[hello]';
         var meta = '[hello]: #';
 
-        model.newInput(input);
+        model.newInput(input + input);
 
         equal(model.markDown(), (input + input + key.ret + key.ret + meta + key.ret + meta));
 
     });
 
-   function validInputBufferOn(model, text) {
-         equals(model.markDown(), text);
-         return true;
+    module('placeHolder');
+
+    test('parse brackets', function() {
+        var holder = new placeHolder();
+
+        same(holder.parseBrackets(''), null, 'should be null');
+        same(holder.parseBrackets('[h]'), ['[h]'], 'should be one');
+        same(holder.parseBrackets('[h][b]'), ['[h]', '[b]'], 'should be two');
+        same(holder.parseBrackets('[h] [b]'), ['[h]', '[b]'], 'should be two with space');
+        same(holder.parseBrackets('[h]' + key.ret + '[b]'), ['[h]', '[b]'], 'should be two with multiline');
+        same(holder.parseBrackets('123sx]adx[h]sggy6 yyfgn f[b]fdg[vbsdbs'), ['[h]', '[b]'], 'should be two even when surrounded bynoise');
+
+    });
+
+    function validInputBufferOn(model, text) {
+        equals(model.markDown(), text);
+        return true;
     }
 
 });
