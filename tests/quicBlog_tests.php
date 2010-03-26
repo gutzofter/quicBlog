@@ -10,6 +10,7 @@
         <script type="text/javascript" src="../../qunit/qunit.js"></script>
         <script type="text/javascript" src="../quicBlog.js"></script>
         <script type="text/javascript" src="quicBlog_tests.js"></script>
+        <script type="text/javascript" src="placeHolder_tests.js"></script>
 
     </head>
     <body>
