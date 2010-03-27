@@ -3,7 +3,7 @@ var lambda = {
 }
 
 var key = {
-    ret: '/r/n/r/n'
+    ret: '/r/n'
 }
 
 function userInput() {
@@ -16,6 +16,7 @@ function userInput() {
 
 function textModel() {
     this.whenNewInput = lambda.empty;
+    this.whenMarkdownReady = lambda.empty;
 
     // TODO: add a DataGateway for these memebers
     this.inputBuffer = '';
@@ -29,6 +30,7 @@ function textModel() {
 
     this.placeHolders = function(holders) {
         this.metaInformation = holders;
+        this.whenMarkdownReady(this.markDown());
     }
 
     this.markDown = function() {
@@ -41,26 +43,20 @@ function textModel() {
 }
 
 function placeHolder() {
-    this.whenMatchBrackets = lambda.empty;
+    this.whenFilled = lambda.empty;
 
-    this.matchBrackets = function(inputBuffer) {
+    this.fillPlaceHolders = function(buffer, holders) {
         var matches = [];
-        var matchIds = '';
+        
+        matches = this.getBracketMatches(buffer);
 
-        matches = this.parseBrackets(inputBuffer);
-
-        for each(var match in matches) {
-            matchIds += (key.ret + match + ': #');
-        }
-
-        this.whenMatchBrackets(matchIds);
-
+        this.whenFilled(matches);
     }
 
-    this.parseBrackets = function(text) {
-        var bracketPattern =  /\[(.*?)]/g;
+    this.getBracketMatches = function(buffer) {
+        var bracketPattern = /\[(.*?)]/g;
 
-        return text.match(bracketPattern);
+        return buffer.match(bracketPattern);
     }
 }
 
@@ -71,11 +67,11 @@ function textController(input, model) {
 }
 
 function placeHolderCoordinator(placeHolder, model) {
-    model.whenNewInput = function(inputBuffer) {
-        placeHolder.matchBrackets(inputBuffer);
+    model.whenNewInput = function(buffer, holders) {
+        placeHolder.fillPlaceHolders(buffer, holders);
     }
 
-    placeHolder.whenMatchBrackets = function(holders) {
+    placeHolder.whenFillled = function(holders) {
         model.placeHolders(holders);
     }
 }

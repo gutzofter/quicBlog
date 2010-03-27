@@ -28,11 +28,11 @@ $(function(){
         new placeHolderCoordinator(holder, model);
 
         var input = '[hello]';
-        var meta = '[hello]: #';
+        var meta = ['[hello]: #'];
 
-        model.newInput(input);
+        model.newInput(input, meta);
 
-        equal(model.markDown(), (input + key.ret + key.ret + meta));
+        equal(model.markDown(), (input + key.ret + key.ret + meta[0]));
 
     });
 
@@ -50,17 +50,43 @@ $(function(){
 
     });
 
+    function markDown() {
+
+    }
+
+    function markdownCoordinator(markdown, model) {
+
+    }
+
+//    TODO: Need finish edge cases for placeholders
+//    test("markdown is ready for html conversion", function(){
+//        var markdown = new markDown();
+//        var model = new textModel();
+//        new markdownCoordinator(markdown, model);
+//
+//        var mark = '[hello]';
+//        mark += (key.ret + key.ret);
+//        mark += '[hello]: #';
+//
+//        model.newInput(input + input);
+//
+//        equal(model.markDown(), (input + input + key.ret + key.ret + meta + key.ret + meta));
+//
+//    });
+
     module('placeHolder');
 
-    test('parse brackets', function() {
+    test("get matches", function(){
         var holder = new placeHolder();
 
-        same(holder.parseBrackets(''), null, 'should be null');
-        same(holder.parseBrackets('[h]'), ['[h]'], 'should be one');
-        same(holder.parseBrackets('[h][b]'), ['[h]', '[b]'], 'should be two');
-        same(holder.parseBrackets('[h] [b]'), ['[h]', '[b]'], 'should be two with space');
-        same(holder.parseBrackets('[h]' + key.ret + '[b]'), ['[h]', '[b]'], 'should be two with multiline');
-        same(holder.parseBrackets('12*&^%GH3sx]adx[h]sggy6 yyfgn f[b]f+_-&&~~@dg[vbsdbs'), ['[h]', '[b]'], 'should be two even when surrounded bynoise');
+        same(holder.getBracketMatches('[hello]'), ['[hello]']);
+
+    });
+
+    test("noisy match", function(){
+        var holder = new placeHolder();
+
+        same(holder.getBracketMatches('sdfskklsfjg[hello]^&*()))Jjkdfj'), ['[hello]']);
 
     });
 
