@@ -25,19 +25,20 @@ function textModel() {
 
     this.newInput = function(text) {
         inputBuffer = text;
-        this.whenNewInput(text, metaInformation);
+        this.whenNewInput(inputBuffer, metaInformation);
     }
 
     this.placeHolders = function(holders) {
-        this.metaInformation = holders;
+        metaInformation = holders;
         this.whenMarkdownReady(this.markDown());
     }
 
     this.markDown = function() {
-        if(this.metaInformation == '') {
-            return this.inputBuffer;
+        var meta = '';
+        for(var holder in metaInformation) {
+            meta += key.ret + holder + ': ' + metaInformation[holder];
         }
-        return (this.inputBuffer + key.ret + this.metaInformation);
+        return (inputBuffer + key.ret + meta);
     }
 
 }
@@ -87,11 +88,11 @@ function textController(input, model) {
 }
 
 function placeHolderCoordinator(placeHolder, model) {
-    model.whenNewInput = function(newtext, holders) {
-        placeHolder.fillPlaceHolders(newtext, holders);
+    model.whenNewInput = function(newText, holders) {
+        placeHolder.fillPlaceHolders(newText, holders);
     }
 
-    placeHolder.whenFillled = function(holders) {
+    placeHolder.whenFilled = function(holders) {
         model.placeHolders(holders);
     }
 }

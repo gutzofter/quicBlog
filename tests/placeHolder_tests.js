@@ -21,7 +21,7 @@ $(function(){
         var sometext = '';
 
         input = {
-            whenInput: lambda.empty
+            whenInput: lambda.empty()
         }
 
         model = {
@@ -30,22 +30,22 @@ $(function(){
             }
         }
 
-         new textController(input, model);
-         input.whenInput('hello');
-         same(someText, 'hello');
+        new textController(input, model);
+        input.whenInput('hello');
+        same(someText, 'hello');
 
     })
 
     module("textModule");
 
-    should("no text and no place holders", function(){
+    should("fire whenNewInput when newInput", function(){
         var model = new textModel();
         var someNewText = '';
         var someHolders = {};
 
         model.whenNewInput = function(newText, holders) {
-           someNewText = newText;
-           someHolders = holders;
+            someNewText = newText;
+            someHolders = holders;
         }
 
         model.newInput('');
@@ -53,113 +53,83 @@ $(function(){
         same(someHolders, {});
     });
 
+    should("fire whenMarkdownReady when one placeHolders", function(){
+        var model = new textModel();
+        var someMarkDown = '';
+
+        model.whenMarkdownReady = function(markdown) {
+            someMarkDown = markdown;
+        }
+
+        model.newInput('[hello]');
+        model.placeHolders({
+            '[hello]': '#'
+        })
+        
+        same(someMarkDown, ('[hello]' + key.ret + key.ret + '[hello]: #'));
+    });
+
+    should("fire whenMarkdownReady when two placeHolders", function(){
+        var model = new textModel();
+        var someMarkDown = '';
+
+        model.whenMarkdownReady = function(markdown) {
+            someMarkDown = markdown;
+        }
+
+        model.newInput('[hello] [dada]');
+        model.placeHolders({
+            '[hello]': '#',
+            '[dada]': '#'
+        })
+
+        same(someMarkDown, ('[hello] [dada]'+ key.ret + key.ret + '[hello]: #' + key.ret + '[dada]: #'));
+    });
+
     module('placeHolderController');
 
-    should('have fired whenNewInput ', function() {
+    should('have fired whenNewInput', function() {
         var someNewText = '';
         var someHolders = {};
 
         holder = {
-            fillPlaceHolder: function(newText, holders) {
+            fillPlaceHolders: function(newText, holders) {
                 someNewText = newText;
                 someHolders = holders;
             }
         }
-        
+
         model = {
-            whenNewInput: lambda.empty
+            whenNewInput: lambda.empty()
         }
 
         new placeHolderCoordinator(holder, model);
-        model.whenNewInput(newText, holders);
-        
+        model.whenNewInput(someNewText, someHolders);
+
         same(someNewText, '');
         same(someHolders, {});
-        
+
     })
 
+    should('have fired whenFilled ', function() {
+        var someHolders = {};
+
+        holder = {
+            whenFilled: lambda.empty()
+        }
 
 
+        model = {
+            placeHolders: function(holders) {
+                someHolders = holders;
+            }
+        }
 
-
-
-
-
-    test("input text at input should be in model", function(){
-        var input = new userInput();
-        var model = new textModel();
-        new textController(input, model);
-
-        input.setInput('a');
-
-        ok(validInputBufferOn(model, 'a'));
-
-    });
-
-    should("add no link placeholder", function(){
-        var holder = new placeHolder();
-        var model = new textModel();
         new placeHolderCoordinator(holder, model);
+        holder.whenFilled(someHolders);
 
-        var input = 'hello';
-        var meta = {};
-
-        model.newInput(input);
-
-        equal(model.markDown(), input);
-
-    });
-
-    should("add link placeholder", function(){
-        var holder = new placeHolder();
-        var model = new textModel();
-        new placeHolderCoordinator(holder, model);
-
-        var input = '[hello]';
-        var meta = input + ': #'
- 
-        model.newInput(input);
-        equal(model.markDown(), (input + key.ret + key.ret + meta));
-
-    });
-
-    test("add two link placeholders", function(){
-        var holder = new placeHolder();
-        var model = new textModel();
-        new placeHolderCoordinator(holder, model);
-
-        var input = '[hello]';
-        var meta = '[hello]: #';
-
-        model.newInput(input + input);
-
-        equal(model.markDown(), (input + input + key.ret + key.ret + meta + key.ret + meta));
-
-    });
-
-    function markDown() {
-
-    }
-
-    function markdownCoordinator(markdown, model) {
-
-    }
-
-//    TODO: Need finish edge cases for placeholders
-//    test("markdown is ready for html conversion", function(){
-//        var markdown = new markDown();
-//        var model = new textModel();
-//        new markdownCoordinator(markdown, model);
-//
-//        var mark = '[hello]';
-//        mark += (key.ret + key.ret);
-//        mark += '[hello]: #';
-//
-//        model.newInput(input + input);
-//
-//        equal(model.markDown(), (input + input + key.ret + key.ret + meta + key.ret + meta));
-//
-//    });
+        same(someHolders, {});
+    })
 
     module('placeHolder');
 
@@ -173,7 +143,9 @@ $(function(){
 
         holder.fillPlaceHolders('[hello]', {})
 
-        same(meta, {'[hello]': '#'});
+        same(meta, {
+            '[hello]': '#'
+        });
 
     });
 
@@ -185,7 +157,9 @@ $(function(){
             meta = holders;
         }
 
-        holder.fillPlaceHolders('[hello]', {'[hello]': '#'})
+        holder.fillPlaceHolders('[hello]', {
+            '[hello]': '#'
+        })
 
         same(meta, {});
 
@@ -208,7 +182,9 @@ $(function(){
         var holder = new placeHolder();
 
         var match = ['[hello]'];
-        var holders = {'[hello]': '#'};
+        var holders = {
+            '[hello]': '#'
+        };
 
 
         same(holder.removeIfhasPlaceHolder(match, holders), {});
@@ -218,7 +194,9 @@ $(function(){
         var holder = new placeHolder();
 
         var match = ['[hello]'];
-        var holders = {'[hello]': '#'};
+        var holders = {
+            '[hello]': '#'
+        };
 
         same(holder.removeIfhasPlaceHolder(match, {}), holders);
     });
@@ -227,7 +205,9 @@ $(function(){
         var holder = new placeHolder();
 
         var match = '[hello]';
-        var holders = {'[hello]': '#'};
+        var holders = {
+            '[hello]': '#'
+        };
 
         ok(!holder.hasNoPlaceHolder(match, holders), 'already has a place holder');
 
