@@ -19,13 +19,13 @@ function textModel() {
     this.whenMarkdownReady = lambda.empty;
 
     // TODO: add a DataGateway for these memebers
-    this.inputBuffer = '';
-    this.metaInformation = '';
+    var inputBuffer = '';
+    var metaInformation = {};
     //--------------------------------
 
     this.newInput = function(text) {
-        this.inputBuffer = text;
-        this.whenNewInput(text);
+        inputBuffer = text;
+        this.whenNewInput(text, metaInformation);
     }
 
     this.placeHolders = function(holders) {
@@ -49,8 +49,28 @@ function placeHolder() {
         var matches = [];
         
         matches = this.getBracketMatches(buffer);
+        matches = this.removeIfhasPlaceHolder(matches, holders);
 
         this.whenFilled(matches);
+    }
+
+    this.removeIfhasPlaceHolder = function(matches, holders) {
+        var newHolders = {};
+        
+        for each(var match in matches){
+            if(this.hasNoPlaceHolder(match, holders)){
+                newHolders[match] = '#';
+            }
+        }
+
+        return newHolders;
+    }
+
+    this.hasNoPlaceHolder = function(match, holders) {
+        if(holders[match]) {
+            return false;
+        }
+        return true;
     }
 
     this.getBracketMatches = function(buffer) {
@@ -67,8 +87,8 @@ function textController(input, model) {
 }
 
 function placeHolderCoordinator(placeHolder, model) {
-    model.whenNewInput = function(buffer, holders) {
-        placeHolder.fillPlaceHolders(buffer, holders);
+    model.whenNewInput = function(newtext, holders) {
+        placeHolder.fillPlaceHolders(newtext, holders);
     }
 
     placeHolder.whenFillled = function(holders) {
@@ -83,7 +103,6 @@ $(function() {
     addClasses('#left_container', standardClasses);
     addClasses('#input_box', standardClasses);
     addClasses('#output_box', standardClasses);
-
 
 });
 
