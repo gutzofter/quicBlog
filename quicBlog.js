@@ -6,6 +6,14 @@ var key = {
     ret: '/r/n'
 }
 
+function itemCount(obj) {
+    var count = 0;
+    for (var k in obj) {
+        ++count;
+    }
+    return count;
+}
+
 function userInput() {
     this.whenInput = lambda.empty;
 
@@ -34,11 +42,22 @@ function textModel() {
     }
 
     this.markDown = function() {
+        var markdown = '';
+
         var meta = '';
-        for(var holder in metaInformation) {
-            meta += key.ret + holder + ': ' + metaInformation[holder];
+
+        if(itemCount(metaInformation) <= 0) {
+            markdown = inputBuffer;
         }
-        return (inputBuffer + key.ret + meta);
+        else {
+            for(var holder in metaInformation) {
+                meta += key.ret + holder + ': ' + metaInformation[holder];
+            }
+            markdown = inputBuffer + key.ret + meta;
+
+        }
+        
+        return markdown;
     }
 
 }

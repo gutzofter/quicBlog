@@ -1,5 +1,19 @@
 
 $(function(){
+    module('utilities');
+    
+    should('items count of object', function() {
+        //Arrange
+        var obj = {
+            one: 1,
+            two: 2
+        };
+        var arr = [1,2];
+
+        same(arr.length, 2);
+        same(itemCount(obj), 2);
+    })
+
     module('userInput');
 
     should('generate event', function() {
@@ -51,6 +65,34 @@ $(function(){
         model.newInput('');
         same(someNewText, '');
         same(someHolders, {});
+    });
+
+    should("fire whenMarkdownReady with no text inputted", function(){
+        var model = new textModel();
+        var someMarkDown = '';
+
+        model.whenMarkdownReady = function(markdown) {
+            someMarkDown = markdown;
+        }
+
+        model.newInput('');
+        model.placeHolders({});
+
+        same(someMarkDown, (''));
+    });
+
+    should("fire whenMarkdownReady withe text no placeholder inputted", function(){
+        var model = new textModel();
+        var someMarkDown = '';
+
+        model.whenMarkdownReady = function(markdown) {
+            someMarkDown = markdown;
+        }
+
+        model.newInput('whatever');
+        model.placeHolders({});
+
+        same(someMarkDown, ('whatever'));
     });
 
     should("fire whenMarkdownReady when one placeHolders", function(){
@@ -165,14 +207,15 @@ $(function(){
 
     });
 
-    test("get matches", function(){
+    should("get matches", function(){
         var holder = new placeHolder();
 
         same(holder.getBracketMatches('[hello]'), ['[hello]']);
 
     });
 
-    test("noisy match", function(){
+    //TODO: Verify rest of tests
+    should("noisy match", function(){
         var holder = new placeHolder();
 
         same(holder.getBracketMatches('sdfskklsfjg[hello]^&*()))Jjkdfj'), ['[hello]']);
