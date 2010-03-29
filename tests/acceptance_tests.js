@@ -61,4 +61,5 @@ $(function(){
         //Assert
         same(someText, ('whatever [hello]' + key.ret + key.ret + '[hello]: #'));
     })
+
 });
