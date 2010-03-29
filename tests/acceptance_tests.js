@@ -20,46 +20,59 @@ var runContext = new function() {
 $(function(){
     module('Acceptance Tests');
 
-    should('have no markdown', function() {
+    should('have no markdown or text', function() {
         //Arrange
-        var someText = '';
+        var someHTML = '';
         runContext.registerMarkdownEvent(function(text) {
-            someText = text;
+            someHTML = text;
         });
 
         //Act
         runContext.newInput('');
 
         //Assert
-        same(someText, '');
+        same(someHTML, '');
     })
 
     should('have no markdown, but some text', function() {
         //Arrange
-        var someText = '';
+        var someHTML = '';
         runContext.registerMarkdownEvent(function(text) {
-            someText = text;
+            someHTML = text;
         });
 
         //Act
         runContext.newInput('whatever');
 
         //Assert
-        same(someText, 'whatever');
+        same(someHTML, '<p>whatever</p>');
     })
 
     should('have markdown and some text', function() {
         //Arrange
-        var someText = '';
+        var someHTML = '';
         runContext.registerMarkdownEvent(function(text) {
-            someText = text;
+            someHTML = text;
         });
 
         //Act
         runContext.newInput('whatever [hello]');
 
         //Assert
-        same(someText, ('whatever [hello]' + key.ret + key.ret + '[hello]: #'));
+        same(someHTML, '<p>whatever <a href="#">hello</a></p>');
     })
 
+    should('have markdown and some text as surrounding noise', function() {
+        //Arrange
+        var someHTML = '';
+        runContext.registerMarkdownEvent(function(text) {
+            someHTML = text;
+        });
+
+        //Act
+        runContext.newInput('whatever [hello] whatever');
+
+        //Assert
+        same(someHTML, '<p>whatever <a href="#">hello</a> whatever</p>');
+    })
 });
