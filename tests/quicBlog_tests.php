@@ -10,6 +10,13 @@
         <script type="text/javascript" src="../../qunit/qunit.js"></script>
         <script type="text/javascript" src="../scripts/quicBlog.js"></script>
         <script type="text/javascript" src="../scripts/showdown.js"></script>
+        <script type="text/javascript" src="utilities_tests.js"></script>
+        <script type="text/javascript" src="user_input_tests.js"></script>
+        <script type="text/javascript" src="text_controller_tests.js"></script>
+        <script type="text/javascript" src="text_model_tests.js"></script>
+        <script type="text/javascript" src="place_holder_controller_tests.js"></script>
+        <script type="text/javascript" src="markdown_coordinator_tests.js"></script>
+        <script type="text/javascript" src="markdown_tests.js"></script>
         <script type="text/javascript" src="quicBlog_tests.js"></script>
         <script type="text/javascript" src="placeHolder_tests.js"></script>
 
