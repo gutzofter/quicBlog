@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>quicBlog Acceptance Test Suite || GutZofter</title>
+        <title>quicBlog Integration Test Suite || GutZofter</title>
 
         <link rel="stylesheet" href="../../qunit/qunit.css" type="text/css" media="screen">
 
@@ -13,7 +13,7 @@
 
     </head>
     <body>
-        <h1 id="qunit-header">quicBlog Acceptance Test Suite</h1>
+        <h1 id="qunit-header">quicBlog Integration Test Suite</h1>
         <h2 id="qunit-banner"></h2>
         <div id="qunit-testrunner-toolbar"></div>
         <h2 id="qunit-userAgent"></h2>

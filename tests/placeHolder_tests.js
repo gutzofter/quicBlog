@@ -1,7 +1,7 @@
 
 module('placeHolder filling functions');
 
-should("create new place holders", function(){
+should("create new place holders no old ones", function(){
     var holder = new placeHolder();
     var meta = {};
 
@@ -11,13 +11,11 @@ should("create new place holders", function(){
 
     holder.fillPlaceHolders('[hello]', {})
 
-    same(meta, {
-        '[hello]': '#'
-    });
+    same(meta, { '[hello]': '#' });
 
 });
 
-should("not create new place holders", function(){
+should("not create new place holders no old ones", function(){
     var holder = new placeHolder();
     var meta = {};
 
@@ -25,13 +23,9 @@ should("not create new place holders", function(){
         meta = holders;
     }
 
-    holder.fillPlaceHolders('[hello]', {
-        '[hello]': '#'
-    })
+    holder.fillPlaceHolders('hello', {})
 
-    same(meta, {
-        '[hello]': '#'
-    });
+    same(meta, {});
 
 });
 
@@ -50,7 +44,7 @@ should("two links one place holder no old placeholders", function(){
     });
 });
 
-should("one links one place holder surrounded by text no old placeholders", function(){
+should("one links one old place holder", function(){
     var holder = new placeHolder();
     var meta = {};
 
@@ -58,14 +52,28 @@ should("one links one place holder surrounded by text no old placeholders", func
         meta = holders;
     }
 
-    holder.fillPlaceHolders('whatever [hello] whatever', {})
+    holder.fillPlaceHolders('[hello]', {'[hello]': '#'})
 
     same(meta, {
         '[hello]': '#'
     });
 });
 
-//TODO: this is the shit. need to remove placeholders if links don't exist, but need to keep old place holders if link does
+should("two links one old place holder", function(){
+    var holder = new placeHolder();
+    var meta = {};
+
+    holder.whenFilled = function(holders) {
+        meta = holders;
+    }
+
+    holder.fillPlaceHolders('[hello] whatever [hello]', {'[hello]': '#'})
+
+    same(meta, {
+        '[hello]': '#'
+    });
+});
+
 should("remove place holder if text doesn't exist", function(){
     var holder = new placeHolder();
     var meta = {};
@@ -103,36 +111,68 @@ should("match if surrounded by words", function(){
     same(holder.getBracketMatches('whatever [hello] whatever'), ['[hello]']);
 });
 
-should("add to matches if already does not have a place holder", function(){
+should("add to links if already does not have a place holder", function(){
     var holder = new placeHolder();
 
-    var match = ['[hello]'];
+    var link = ['[hello]'];
     var holders = {
         '[hello]': '#'
     };
 
-    same(holder.removeIfhasPlaceHolder(match, {}), holders);
+    same(holder.makeNewPlaceHolders(link, {}), holders);
+});
+
+should("remove from placeholders if already does not have a link", function(){
+    var holder = new placeHolder();
+
+    var newHolders = [];
+    var holders = {
+        '[hello]': '#'
+    };
+
+    same(holder.removeIfPlaceHoldersHaveNoLinks(newHolders, holders), {});
+});
+
+should("not remove from placeholders if already does have a link", function(){
+    var holder = new placeHolder();
+
+    var matches = ['[hello]'];
+    var holders = {
+        '[hello]': '#'
+    };
+
+    same(holder.removeIfPlaceHoldersHaveNoLinks(matches, holders), {'[hello]': '#'});
 });
 
 should("have a match in holders", function(){
     var holder = new placeHolder();
 
-    var match = '[hello]';
+    var property = '[hello]';
     var holders = {
         '[hello]': '#'
     };
 
-    ok(!holder.hasNoPlaceHolder(match, holders), 'already has a place holder');
+    ok(!holder.hasNoProperty(property, holders), 'already has a place holder');
 
 });
 
 should("not have a match in holders", function(){
     var holder = new placeHolder();
 
-    var match = '[hello]';
+    var property = '[hello]';
     var holders = {};
 
-    ok(holder.hasNoPlaceHolder(match, holders), 'already has a place holder');
+    ok(holder.hasNoProperty(property, holders), 'does not already have a place holder');
+
+});
+
+should("have property", function(){
+    var holder = new placeHolder();
+
+    var property = '[hello]';
+    var holders = { '[hello]': 1};
+
+    ok(holder.hasProperty(property, holders), 'does property');
 
 });
 
