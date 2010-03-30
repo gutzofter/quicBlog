@@ -7,7 +7,8 @@
 
         <script type="text/javascript" src="jquery-1.4.2.js"></script>
         <script type="text/javascript" src="../../qunit/qunit.js"></script>
-        <script type="text/javascript" src="../quicBlog.js"></script>
+        <script type="text/javascript" src="../scripts/quicBlog.js"></script>
+        <script type="text/javascript" src="../scripts/showdown.js"></script>
         <script type="text/javascript" src="acceptance_tests.js"></script>
 
     </head>
