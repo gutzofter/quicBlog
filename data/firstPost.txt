@@ -1,0 +1,22 @@
+#WooHoo!
+
+##I finally have put together version 1.0 of [quicBlog].
+
+This application is designed for those who are tired of writing a nice simple blog post and realizing they need to add links.
+
+It will automatically generate **`href="#"`** tags for anything enclosed by square brackets ex: **`[hello]`**. after your done you then add the actual reference at the bottom of the text page.
+
+###Example:
+
++ **`[hello]: http://hello.com`**
+
+###Directions:
+
++ To use this [application] download it.
++ Install on your server.
++ Run **`quicBlog.php`** from local host.
++ When done change **Preview** to **HTML Output**
++ Copy and Paste
+
+[quicBlog]: http://github.com/gutzofter/quicBlog
+[application]: http://github.com/gutzofter/quicBlog

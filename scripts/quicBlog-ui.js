@@ -115,7 +115,7 @@ function startGui() {
 	onPaneSettingChanged();
 
 	// build the converter
-	converter = new Showdown.converter();
+//	converter = new Showdown.converter();
 
 	// do an initial conversion to avoid a hiccup
 	convertText();
@@ -137,6 +137,14 @@ function startGui() {
 function convertText() {
 	// get input text
 	var text = inputPane.value;
+        //build the runContext
+        var someHTML = '';
+        runContext.registerHTMLConvertedEvent(function(html) {
+            someHTML = html;
+        });
+
+
+
 	
 	// if there's no change to input, cancel conversion
 	if (text && text == lastText) {
@@ -148,7 +156,9 @@ function convertText() {
 	var startTime = new Date().getTime();
 
 	// Do the conversion
-	text = converter.makeHtml(text);
+        runContext.newInput(text);
+
+	text = someHTML;
 
 	// display processing time
 	var endTime = new Date().getTime();	

@@ -3,7 +3,7 @@ html,body {
     padding:0;
     font-family: Helvetica, Arial, Verdana, sans-serif;
     font-size: 90%;
-    background-color: #669900;
+    background-color: #cccccc;
 }
 
 html {
@@ -20,7 +20,7 @@ textarea {
     text-align: center;
     margin-bottom: 0;
     margin-top: 0.4em;
-    color: #766;
+    color: #999999;
 }
 
 #pageHeader h1 {
@@ -86,7 +86,7 @@ textarea {
 }
 
 .paneHeader span {
-    background-color: #669900;
+    background-color: #cccccc;
     color: #444;
     padding: 0 0.75em;
     font-size: 110%;
@@ -99,7 +99,7 @@ textarea {
     font-size: 110%;
     font-weight: 900;
     font-family: Arial, Verdana, sans-serif;
-    background-color: #dacccc;
+    background-color: #f1eded;
     color: #444;
     border: 1px solid #999;
 }
@@ -195,7 +195,7 @@ div.pane {
 
 #byline {
     padding-left: 2em;
-    color: silver;
+    color: #666;
 }
 
 #convertTextControls {
@@ -205,9 +205,9 @@ div.pane {
 
 #convertTextButton {
     line-height: 1em;
-    background-color: #ccbfbf;
+    background-color: #cccccc;
     color: #000;
-    border: none;
+    border: solid inset black;
 }
 
 #convertTextButton:hover {
@@ -216,7 +216,7 @@ div.pane {
 }
 
 #convertTextSetting {
-    background-color: #dacccc;
+    background-color: #F1EDED;
     color: #222;
     border: 1px solid #999;
 }

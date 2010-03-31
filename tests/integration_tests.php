@@ -9,7 +9,7 @@
         <script type="text/javascript" src="../../qunit/qunit.js"></script>
         <script type="text/javascript" src="../scripts/quicBlog.js"></script>
         <script type="text/javascript" src="../scripts/showdown.js"></script>
-        <script type="text/javascript" src="acceptance_tests.js"></script>
+        <script type="text/javascript" src="integration_tests.js"></script>
 
     </head>
     <body>
