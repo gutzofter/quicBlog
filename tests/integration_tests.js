@@ -24,7 +24,7 @@ var runContext = new function() {
 }
 
 $(function(){
-    module('Acceptance Tests');
+    module('Integration Tests');
 
     should('have no markdown or text', function() {
         //Arrange

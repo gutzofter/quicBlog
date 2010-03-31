@@ -185,18 +185,3 @@ function markDownCoordinator(markdown, model) {
     }
 }
 
-
-$(function() {
-    $("#content").addClass("outline");
-    var standardClasses = ['outline', 'reset_left', 'left_position'];
-    addClasses('#left_container', standardClasses);
-    addClasses('#input_box', standardClasses);
-    addClasses('#output_box', standardClasses);
-
-});
-
-function addClasses(elementId, items) {
-    for(var item in items)
-        $(elementId).addClass(items[item]);
-}
-
