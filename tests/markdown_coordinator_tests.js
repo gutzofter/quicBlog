@@ -1,4 +1,5 @@
 module('markDownCoordinator');
+//TODO: remove this remark
 
 should('should have fired when markdown ready', function() {
     var someMarkdown = '';
