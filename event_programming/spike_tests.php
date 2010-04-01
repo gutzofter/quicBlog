@@ -5,7 +5,7 @@
 
         <link rel="stylesheet" href="../../qunit/qunit.css" type="text/css" media="screen">
 
-        <script type="text/javascript" src="..scripts/jquery-1.4.2.js"></script>
+        <script type="text/javascript" src="../scripts/jquery-1.4.2.js"></script>
         <script type="text/javascript" src="../../qunit/qunit.js"></script>
         <script type="text/javascript" src="../scripts/quicBlog.js"></script>
         <script type="text/javascript" src="event_coordinator_tests.js"></script>
